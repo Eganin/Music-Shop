@@ -61,7 +61,7 @@
         android:layout_height="wrap_content" />
 
     <ImageView
-        android:id="@+id/guitarImage"
+        android:id="@+id/imageItem"
         android:layout_width="177dp"
         android:layout_height="117dp"
         android:layout_centerHorizontal="true"
@@ -90,7 +90,7 @@
             android:layout_height="wrap_content"
             android:layout_below="@id/textViewOrderPrice"
             android:layout_marginStart="40dp"
-            android:layout_marginLeft="8dp"
+            android:layout_marginLeft="15dp"
             android:layout_marginTop="20dp"
             android:text="0"
             android:textColor="@android:color/black"
@@ -124,13 +124,14 @@
 
         <Button
             android:id="@+id/buttonPlus"
+            android:onClick="increaseQuantity"
             android:layout_width="60dp"
             android:layout_height="60dp"
             android:layout_below="@id/textViewQuantity"
-            android:layout_marginStart="250dp"
-            android:layout_marginLeft="250dp"
+            android:layout_marginStart="50dp"
+            android:layout_marginLeft="50dp"
             android:layout_marginTop="6dp"
-            android:layout_toRightOf="@id/textViewCurrencyPrice"
+            android:layout_toRightOf="@id/buttonMinus"
             android:background="@color/colorAddCartButton"
             android:text="+"
             android:textColor="@android:color/white" />
@@ -150,16 +151,18 @@
 
         <Button
             android:id="@+id/buttonMinus"
+            android:onClick="addingQuantity"
             android:layout_width="60dp"
             android:layout_height="60dp"
             android:layout_below="@id/textViewQuantity"
-            android:layout_marginStart="150dp"
+            android:layout_marginStart="210dp"
             android:layout_marginLeft="150dp"
             android:layout_marginTop="6dp"
-            android:layout_toRightOf="@id/textViewCurrencyPrice"
+            android:layout_alignParentStart="true"
             android:background="@color/colorAddCartButton"
             android:text="-"
-            android:textColor="@android:color/white" />
+            android:textColor="@android:color/white"
+            android:layout_alignParentLeft="true" />
 
 
     </RelativeLayout>
