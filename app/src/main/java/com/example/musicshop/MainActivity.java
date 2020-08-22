@@ -3,9 +3,11 @@ package com.example.musicshop;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.TextView;
@@ -20,12 +22,15 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
     private static final String NULL_RESULT = "0";// нулевое значение
     private String[] nameGoods = new String[]{"guitar", "drums", "keyboard"};
     private Double[] goodsPrice = new Double[]{500.0D, 1000.0D, 1500.0D};
-    String goodsName;
-    double price;
-    Spinner spinner;
+    private String goodsName;
+    private double price;
+    private Spinner spinner;
+    private HashMap<String, Double> goodsMap;
+    EditText userName;
+    TextView quantityOrder;
+    TextView orderPrice;
     ArrayList<String> spinnerArrayList;
     ArrayAdapter<String> spinnerAdapter;
-    HashMap<String, Double> goodsMap;
 
 
     @Override
@@ -72,20 +77,26 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
 
     }
 
+    public void addToOrder(View view) {
+        userName = findViewById(R.id.inputNameEditText);
+        quantityOrder = findViewById(R.id.textViewCounter);
+        orderPrice = findViewById(R.id.textViewPrice);
+
+        Order order = new Order(userName.getText().toString(),
+                goodsName,
+                quantity,
+                (Double) (quantity*price)
+        );
+
+
+    }
+
     @Override
     public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
         /*
         Метод который срабатывает на нажатие объекта из выпадающего списка - spinner
          */
-        TextView textViewCounter = findViewById(R.id.textViewCounter);// находим по id
-        String textCounter = (String) textViewCounter.getText(); // получаем текст
-        // выбранное значение в spinner на данный момент
-        goodsName = spinner.getSelectedItem().toString();
-        price = (double) goodsMap.get(goodsName);
-        int quantity = Integer.parseInt(textCounter);
-        TextView textViewPrice = findViewById(R.id.textViewPrice);
-        String result = String.valueOf(price * quantity);
-        textViewPrice.setText(result);
+        clickedItemSpinner();
 
         // при нажатии элемента в списке выбираем соответсвующее изображение
         setImageItem();
@@ -97,7 +108,7 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
 
     }
 
-    private void setImageItem(){
+    private void setImageItem() {
         ImageView imageView = findViewById(R.id.imageItem);
         switch (goodsName) {
             case "guitar":
@@ -117,6 +128,7 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
 
     private void fillingSpinner() {
         /*
+        создание spinner и
         наполнение spinner значением
          */
         spinner = findViewById(R.id.choiceSpinner);
@@ -142,4 +154,17 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
             goodsMap.put(nameGoods[i], goodsPrice[i]);
         }
     }
+
+    public void clickedItemSpinner() {
+        TextView textViewCounter = findViewById(R.id.textViewCounter);// находим по id
+        String textCounter = (String) textViewCounter.getText(); // получаем текст
+        // выбранное значение в spinner на данный момент
+        goodsName = spinner.getSelectedItem().toString();
+        price = (double) goodsMap.get(goodsName);
+        int quantity = Integer.parseInt(textCounter);
+        TextView textViewPrice = findViewById(R.id.textViewPrice);
+        String result = String.valueOf(price * quantity);
+        textViewPrice.setText(result);
+    }
+
 }
