@@ -9,14 +9,31 @@ public class Order extends AppCompatActivity {
     private String goodsName;
     private int quantity;
     private double orderPrice;
+    private double price;
 
+    public String getGoodsName() {
+        return goodsName;
+    }
 
+    public void setGoodsName(String goodsName) {
+        this.goodsName = goodsName;
+    }
 
-    public Order(String userName , String goodsName , Integer quantity, Double orderPrice){
+    public double getPrice() {
+        return price;
+    }
+
+    public void setPrice(double price) {
+        this.price = price;
+    }
+
+    public Order(String userName , String goodsName , Integer quantity,
+                 Double orderPrice,Double price){
         this.userName = userName;
         this.goodsName = goodsName;
         this.quantity = quantity;
         this.orderPrice = orderPrice;
+        this.price = price ;
 
     }
 

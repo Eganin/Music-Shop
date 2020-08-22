@@ -93,7 +93,8 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
             Order order = new Order(userName.getText().toString(),
                     goodsName,
                     quantity,
-                    (Double) (quantity*price));
+                    (Double) (quantity*price),
+                    price);
 
             // запуск нового окна
             Intent orderIntent = new Intent(MainActivity.this,OrderActivity.class);
@@ -190,6 +191,7 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
         orderIntent.putExtra("goodsName",order.getGoods());
         orderIntent.putExtra("quantity",order.getQuantity());
         orderIntent.putExtra("orderPrice",order.getOrderPrice());
+        orderIntent.putExtra("price",order.getPrice());
         startActivity(orderIntent);// запуск activity
     }
 

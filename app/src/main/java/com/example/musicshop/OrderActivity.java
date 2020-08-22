@@ -13,10 +13,13 @@ public class OrderActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_order);
 
+        setTitle("Your order"); // изменение названия activity
+
         receivingDataUserName();
-        //receivingDataGoodsName();
-        //receivingDataQuantity();
-        //receivingDataOrderPrice();
+        receivingDataGoodsName();
+        receivingDataQuantity();
+        receivingDataOrderPrice();
+        receivingDataPrice();
     }
 
     public void receivingDataUserName(){
@@ -24,22 +27,40 @@ public class OrderActivity extends AppCompatActivity {
         // получение отправленных данных
         String userName = receivedOrderIntent.getStringExtra("userName");
         TextView orderTextView = findViewById(R.id.orderTextView);
-        orderTextView.setText(userName);
+        String resultString = "Customer name: " + userName;
+        orderTextView.setText(resultString);
     }
 
     public void receivingDataGoodsName(){
         Intent receivedOrderIntent = getIntent();
         String goodsName = receivedOrderIntent.getStringExtra("goodsName");
+        TextView orderTextView = findViewById(R.id.orderGoodsName);
+        String resultString = "Goods name: " + goodsName;
+        orderTextView.setText(resultString);
     }
 
     public void receivingDataQuantity(){
         Intent receivedOrderIntent = getIntent();
         // получение числа
         Integer quantity = receivedOrderIntent.getIntExtra("quantity",0);
+        TextView orderTextView = findViewById(R.id.orderQuantity);
+        String resultString = "Quantity: " + quantity;
+        orderTextView.setText(resultString);
     }
 
     public void receivingDataOrderPrice(){
         Intent receivedOrderIntent = getIntent();
         Double orderPrice = receivedOrderIntent.getDoubleExtra("orderPrice",0.0D);
+        TextView orderTextView = findViewById(R.id.orderPrice);
+        String resultString = "Order Price: " + orderPrice;
+        orderTextView.setText(resultString);
+    }
+
+    public void receivingDataPrice(){
+        Intent receivedOrderIntent = getIntent();
+        Double price = receivedOrderIntent.getDoubleExtra("price",0.0D);
+        TextView orderTextView = findViewById(R.id.orderTextViewPrice);
+        String resultString = "Price: " + price;
+        orderTextView.setText(resultString);
     }
 }
