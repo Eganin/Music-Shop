@@ -2,11 +2,13 @@ package com.example.musicshop;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Spinner;
@@ -78,16 +80,30 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
     }
 
     public void addToOrder(View view) {
+        /*
+        Добавдение информации в класс order
+         */
         userName = findViewById(R.id.inputNameEditText);
         quantityOrder = findViewById(R.id.textViewCounter);
         orderPrice = findViewById(R.id.textViewPrice);
 
-        Order order = new Order(userName.getText().toString(),
-                goodsName,
-                quantity,
-                (Double) (quantity*price)
-        );
 
+        try{
+            // берем введенную информацию
+            Order order = new Order(userName.getText().toString(),
+                    goodsName,
+                    quantity,
+                    (Double) (quantity*price));
+
+            // запуск нового окна
+            Intent orderIntent = new Intent(MainActivity.this,OrderActivity.class);
+            activityPutValues(orderIntent , order);
+
+
+        }catch (Exception e){// если пользователь не ввел значения
+            Button addToOrder = findViewById(R.id.addToOrder);
+            addToOrder.setText("Введите значения");
+        }
 
     }
 
@@ -165,6 +181,16 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
         TextView textViewPrice = findViewById(R.id.textViewPrice);
         String result = String.valueOf(price * quantity);
         textViewPrice.setText(result);
+    }
+
+    private void activityPutValues(Intent orderIntent , Order order){
+        // отправляем информацию в другую activity
+        // типом ключ значение
+        orderIntent.putExtra("userName",order.getUserName());
+        orderIntent.putExtra("goodsName",order.getGoods());
+        orderIntent.putExtra("quantity",order.getQuantity());
+        orderIntent.putExtra("orderPrice",order.getOrderPrice());
+        startActivity(orderIntent);// запуск activity
     }
 
 }

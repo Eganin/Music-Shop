@@ -1,6 +1,10 @@
 package com.example.musicshop;
 
-public class Order {
+import android.content.Intent;
+
+import androidx.appcompat.app.AppCompatActivity;
+
+public class Order extends AppCompatActivity {
     private String userName;
     private String goodsName;
     private int quantity;
@@ -15,6 +19,7 @@ public class Order {
         this.orderPrice = orderPrice;
 
     }
+
 
     public int getQuantity() {
         return quantity;
